@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+    <title>Survey </title>
+</head>
+
+<body class="bg-light">
+    <div class="container bg-primary border border-dark mt-2 mb-2" style="border-width: 10px;">
+        <div class="jumbotron mt-2">
+            <h1 class="display-4">Welcome to Friend Finder!</h1>
+            <p class="lead">This is the survey page, please select how each statement or question relates to you.</p>
+            <hr class="my-4">
+        </div>
+        <div class="form-group">
+            <div class="form-group row">
+                <label for="inputEmail3" class="col-sm-2 col-form-label ml-2" style="font-size: 24px;">Name</label>
+                <div class="col-sm-10">
+                    <input type="email" class="form-control name" id="inputEmail3" placeholder="Name">
+                </div>
+            </div>
+            <div class="form-group row">
+                <label for="inputEmail3" class="col-sm-2 col-form-label ml-2"style="font-size: 24px;">Email</label>
+                <div class="col-sm-10">
+                    <input type="email" class="form-control email" id="inputEmail3" placeholder="Email">
+                </div>
+            </div>
+            <label for="exampleFormControlSelect2">Others would say your outgoing</label>
+            <select class="form-control" id="question1">
+                    <option numval="1">1</option>
+                    <option numval="2">2</option>
+                    <option numval="3">3</option>
+                    <option numval="4">4</option>
+                    <option numval="5">5</option>
+            </select>
+            <div class="form-group">
+                <label for="exampleFormControlSelect2">I only play sports to win.</label>
+                <select class="form-control" id="question2">
+                        <option numval="1">1</option>
+                        <option numval="2">2</option>
+                        <option numval="3">3</option>
+                        <option numval="4">4</option>
+                        <option numval="5">5</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="exampleFormControlSelect2">I enjoy meeting new people.</label>
+                <select class="form-control" id="question3">
+                        <option numval="1">1</option>
+                        <option numval="2">2</option>
+                        <option numval="3">3</option>
+                        <option numval="4">4</option>
+                        <option numval="5">5</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="exampleFormControlSelect2">I thrive in spur of the moment activities.</label>
+                <select class="form-control" id="question4">
+                        <option numval="1">1</option>
+                        <option numval="2">2</option>
+                        <option numval="3">3</option>
+                        <option numval="4">4</option>
+                        <option numval="5">5</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="exampleFormControlSelect1">I like a lot of time alone.</label>
+                <select class="form-control" id="question5">
+                    <option numval="1">1</option>
+                    <option numval="2">2</option>
+                    <option numval="3">3</option>
+                    <option numval="4">4</option>
+                    <option numval="5">5</option>
+                </select>
+            </div>
+            <input class="btn btn-danger mx-auto submitBtn" type="submit" value="Submit">
+        </div>
+    </div>
+</body>
+<script src="https://code.jquery.com/jquery-3.4.1.js" integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU="
+    crossorigin="anonymous"></script>
+<script src="../routing/htmlRoutes.js"></script>
+<script src="../routing/apiRoutes.js"></script>
+<script src="../../server.js"></script>
+
+</html>
+<script>
+    $('.submitBtn').on('click',function(){
+        var person = {
+            name: $('.name').val(),
+            email:$('.email').val(),
+            questions:[
+            Number($('#question1').val()),
+            Number($('#question2').val()),
+           Number($('#question3').val()),
+           Number($('#question4').val()),
+           Number($('#question3').val())],
+            points:0
+        }
+// one posts to a new person
+        // $.post('/api/newPerson',person)
+        // .then(function(data) {
+        //   console.log("stuff collected");
+        // });
+// when all is dont adds to the peopleArray under the api/survey route
+        $.post("/api/survey",person)
+        .then(function(data) {
+          console.log("survey.html","stuff collected");
+        });
+    })
+</script>
