@@ -7,6 +7,7 @@ var PORT = process.env.PORT || 3000 || 8080;
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 // array of people to compare to
+var newPerson = null;
 var peopleArray= [
     {
     name: 'Billy bob',
@@ -44,37 +45,28 @@ app.get("/api/survey", function(req, res) {
    return res.json(peopleArray)
   });
   app.get("/api/match",function(req,res){
-      return res.json(peopleArray[Math.floor(Math.random() * 3)]);
+      return res.json(peopleSearch(newPerson));
   });
 // function to see who is most similar in peopleArray
-function peopleSearch (){
-    var personMatch =null;
+function peopleSearch (newguy){
     var pointsArray = []
-    for (var j=0;j<peopleArray[0].questions.length-1;j++){
-        for(var i=0;i<peopleArray[0].questions.length-1;i++){
-            if (Math.abs(peopleArray[j].questions[i]-Number(peopleArray[peopleArray.length-1].questions[i]))<3){
-                peopleArray[j].points+=1;
-            }else if(Math.abs(peopleArray[j].questions[i]-Number(peopleArray[peopleArray.length-1].questions[i]))<4){
-            peopleArray[j].points+=1;
-        }else{
+    pointsArray = [];
+    for (var j=0;j<3;j++){
+    for(var i=0;i<newguy.questions.length;i++){
+        if(Math.abs(peopleArray[j].questions[i]-newguy.questions[i])<2){
+            peopleArray[j].points+=2;
+        }else if(Math.abs(peopleArray[j].questions[i]-newguy.questions[i])<3){
+            peopleArray[j].points++
         }
-    } pointsArray.push[peopleArray[j].points]
-} var personMatch = pointsArray.indexOf(Math.max(...pointsArray));
-if(personMatch){
-return peopleArray[personMatch]
-}else{
-    return peopleArray[0]
+    }pointsArray.push(peopleArray[j].points)
+    console.log(pointsArray);
+} var mostPointsPerson=peopleArray[pointsArray.indexOf(Math.max(...pointsArray))]
+return mostPointsPerson
 }
-}
-
 
 app.post("/api/survey", function(req, res) {
-    var newAddition= req.body;
-    for (var i=0;i<newAddition.questions.length;i++){
-       parseInt(newAddition.questions[i]);
-    }
-    peopleArray.push(newAddition)
-    return res.json(peopleSearch());
+    newPerson = req.body;
+    peopleArray.push(newPerson);
    });
 
 app.listen(PORT, function() {
