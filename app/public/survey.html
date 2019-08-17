@@ -32,12 +32,22 @@
                 </div>
             </div>
             <div class="form-group row">
-                    <label for="inputEmail3" class="col-sm-2 col-form-label ml-2" style="font-size: 24px;">Description</label>
-                    <div class="col-sm-10">
-                        <input type="email" class="form-control desc" id="inputEmail3" placeholder="Enter a short description">
-                    </div>
+                <label for="inputEmail3" class="col-sm-2 col-form-label ml-2"
+                    style="font-size: 24px;">Description</label>
+                <div class="col-sm-10">
+                    <input type="email" class="form-control desc" id="inputEmail3"
+                        placeholder="Enter a short description">
                 </div>
-                <div class="matchHere"></div>
+            </div>
+            <div class="form-group row">
+                <label for="inputEmail3" class="col-sm-2 col-form-label ml-2"
+                    style="font-size: 24px;">Picture Link</label>
+                <div class="col-sm-10">
+                    <input type="email" class="form-control profPic" id="inputEmail3"
+                        placeholder="Copy a URL of a picture of yourself!">
+                </div>
+            </div>
+            <div class="matchHere"></div>
             <label for="exampleFormControlSelect2">Others would say your outgoing</label>
             <select class="form-control" id="question1">
                 <option numval="1">1</option>
@@ -101,16 +111,17 @@
 <script>
     $('.submitBtn').on('click', function () {
         var person = {
-            name: $('.name').val(),
-            email: $('.email').val(),
-            description: $('.desc').val(),
+            name: $('.name').val().trim(),
+            email: $('.email').val().trim(),
+            description: $('.desc').val().trim(),
             questions: [
                 $('#question1').val(),
                 $('#question2').val(),
                 $('#question3').val(),
                 $('#question4').val(),
                 $('#question3').val()],
-            points: 0
+            points: 0,
+            picture: $('.profPic').val().trim()
         }
 
         // when all is done adds to the peopleArray under the api/survey route
